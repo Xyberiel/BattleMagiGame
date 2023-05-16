@@ -43,3 +43,8 @@ class Character():
     turn_priority = 1 * agility # Turn priority determines who goes first in battle each turn
     bonus_rewards = 1 * luck # Bonus rewards are extra gold or experience gained after battle
 
+class Player(Character):
+    pass
+
+class Enemy(Character):
+    mob_type = ""
