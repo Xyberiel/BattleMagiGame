@@ -6,45 +6,100 @@ import time
 # parent class for all characters
 class Character():
     name = ""
-    health_points = 100 # Health points
-    mana_points = 100
-    stamina_points = 100
+    base_hp = 100 # Base value for other Health points calculations
+    max_hp = 100  # TODO create a function to calculate max_hp
+    current_hp = 100 # TODO create a function to calculate current_hp
+    base_mp = 100 # Base value for other Mana points calculations
+    max_mp = 100 # TODO create a function to calculate max_mp
+    current_mp = 100 # TODO create a function to calculate current_mp
+    base_sp = 100 # Base value for other Stamina points calculations
+    max_sp = 100 # TODO create a function to calculate max_sp
+    current_sp = 100 # TODO create a function to calculate current_sp
 
-    # Attributes
-    strength = 1 # Physical power
-    dexterity = 1 # Physical accuracy
-    endurance = 1 # Physical efficiency
-    intelligence = 1 # Magic power
-    focus = 1 # Magic accuracy
-    wisdom = 1 # Magic efficiency
-    constitution = 1 # Physical defense
-    spirit = 1 # Magic defense
-    agility = 1 # Physical evasion
-    cunning = 1 # Magic evasion
-    luck = 1 # Random chance of good things happening
+    # Dictionary for base stats with their values and descriptions
+    base_stats = {
+        'STR' : { 'value' : 1, 'description' : "Physical Power"},
+        'DEX' : { 'value' : 1, 'description' : "Physical Accuracy"},
+        'END' : { 'value' : 1, 'description' : "Physical Efficiency"},
+        'INT' : { 'value' : 1, 'description' : "Magic Power"},
+        'FOC' : { 'value' : 1, 'description' : "Magic Accuracy"},
+        'WIS' : { 'value' : 1, 'description' : "Magic Efficiency"},
+        'CON' : { 'value' : 1, 'description' : "Physical Defense"},
+        'SPI' : { 'value' : 1, 'description' : "Magic Defense"},
+        'AGI' : { 'value' : 1, 'description' : "Physical Evasion"},
+        'CUN' : { 'value' : 1, 'description' : "Magic Evasion"},
+        'LUC' : { 'value' : 1, 'description' : "Random Chance of Good Things Happening"}
+        }
 
-    # Derived Attributes
-    max_health = health_points + (2 * constitution) # Maximum health points
-    health_regen = (health_points / 100) + constitution # Health points regenerated per turn
-    max_mana = mana_points + (2 * wisdom) # Maximum mana points
-    mana_regen = (mana_points / 100) + wisdom # Mana points regenerated per turn
-    max_stamina = 100 + (2 * endurance) # Maximum stamina points
-    stamina_regen = (stamina_points / 100) + endurance # Stamina points regenerated per turn
-    phys_crit_chance = 1 * dexterity # Physical critical hit chance
-    phys_crit_damage = 1 * strength # Physical critical hit damage
-    mag_crit_chance = 1 * focus # Magic critical hit chance
-    mag_crit_damage = 1 * intelligence # Magic critical hit damage
-    block_chance = 1 * constitution # Block chance is a chance to reduce damage by 50% if player has a shield equipped
-    mag_block_chance = 1 * spirit # Magic block chance is a chance to reduce damage by 50% if player has a magic shield equipped
-    parry_chance = 1 * dexterity # Parry chance is a chance to reduce damage by 100% if player has two weapons equipped
-    magic_parry_chance = 1 * cunning # Magic parry chance is a chance to reduce damage by 100% if player has two magic weapons equipped
-    dodge_chance = 1 * agility # Dodge chance is a chance to avoid damage entirely if player has no shield equipped
-    magic_dodge_chance = 1 * cunning # Magic dodge chance is a chance to avoid damage entirely if player has no magic shield equipped
-    turn_priority = 1 * agility # Turn priority determines who goes first in battle each turn
-    bonus_rewards = 1 * luck # Bonus rewards are extra gold or experience gained after battle
+    # Dictionary for derived stats with their values and descriptions
+    derived_stats = {
+        'HP' : { 'value' : 100, 'description' : "Health Points"},
+        'MP' : { 'value' : 100, 'description' : "Mana Points"},
+        'SP' : { 'value' : 100, 'description' : "Stamina Points"},
+        'DEF' : { 'value' : 1, 'description' : "Physical Defense"},
+        'MAG_DEF' : { 'value' : 1, 'description' : "Magic Defense"},
+        'PHY_ACC' : { 'value' : 1, 'description' : "Physical Accuracy"},
+        'MAG_ACC' : { 'value' : 1, 'description' : "Magic Accuracy"},
+        'PHY_EVA' : { 'value' : 1, 'description' : "Physical Evasion"},
+        'MAG_EVA' : { 'value' : 1, 'description' : "Magic Evasion"},
+        'PHY_CRIT' : { 'value' : 1, 'description' : "Physical Critical Hit Chance"},
+        'MAG_CRIT' : { 'value' : 1, 'description' : "Magic Critical Hit Chance"},
+        'PHY_CRIT_DMG' : { 'value' : 1, 'description' : "Physical Critical Hit Damage"},
+        'MAG_CRIT_DMG' : { 'value' : 1, 'description' : "Magic Critical Hit Damage"},
+        'BLK' : { 'value' : 1, 'description' : "Block Chance"},
+        'MAG_BLK' : { 'value' : 1, 'description' : "Magic Block Chance"},
+        'PARRY' : { 'value' : 1, 'description' : "Parry Chance"},
+        'MAG_PARRY' : { 'value' : 1, 'description' : "Magic Parry Chance"},
+        'DODGE' : { 'value' : 1, 'description' : "Dodge Chance"},
+        'MAG_DODGE' : { 'value' : 1, 'description' : "Magic Dodge Chance"},
+        'TURN_PRIORITY' : { 'value' : 1, 'description' : "Turn Priority"},
+        'BONUS_REWARDS' : { 'value' : 1, 'description' : "Bonus Rewards"}        
+        }
 
+    
+    # TODO create a getter that checks if base stats or derived stats are being requested and returns the value
+    def get_stat(self, stat):
+        if stat in self.base_stats:
+            return self.base_stats[stat]['value']
+        elif stat in self.derived_stats:
+            return self.derived_stats[stat]['value']
+        else:
+            return "Stat not found"
+    # A sample call for the getter would be: player.get_stat('STR')
+
+    # TODO create a setter that checks if base stats or derived stats are being set and sets the value
+    def set_stat(self, stat, value):
+        if stat in self.base_stats:
+            self.base_stats[stat]['value'] = value
+        elif stat in self.derived_stats:
+            self.derived_stats[stat]['value'] = value
+        else:
+            return "Stat not found"
+    # a sample call for the setter would be: player.set_stat('STR', 10)
+
+
+# subclass for the player character
 class Player(Character):
+    # TODO create a container for the player's inventory
+    # TODO create a container for the player's equipment
+    # TODO create a container for the player's spells
+    # TODO create a container for the player's skills
     pass
 
+
+# subclass for enemies and bosses
 class Enemy(Character):
+    # TODO create a list of random names for enemies
+    # TODO create a list of random mob types for enemies
+    # TODO create a list of random mob descriptions for enemies
     mob_type = ""
+    pass
+    
+
+# subclass for summoned creatures and familiars
+class Summon(Character):
+    # TODO create a list of random names for summons
+    # TODO create a list of random summon types for summons
+    # TODO create a list of random summon descriptions for summons
+    summon_type = ""
+    pass
