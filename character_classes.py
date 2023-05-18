@@ -10,11 +10,16 @@ class Character():
     # Check if name is provided, if not, set name to "unnamed"
     # Initialize base stats and derived stats
     # Initialize base HP, MP, and SP
-    def __init__(self, name = ""):
+    def __init__(self, name = "", race = ""):
         if name != "":
             self.name = name
         else:
             self.name = "unnamed"
+
+        if race != "":
+            self.race = race
+        else:
+            self.race = "unknown"
 
         self.base_stats = {
             'STR' : { 'value' : 1, 'description' : "Physical Power"},

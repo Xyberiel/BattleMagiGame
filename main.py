@@ -4,44 +4,38 @@ import random
 import time
 import os
 import sys
-import character_class
+import character_classes
+from character_classes import Enemy
+from character_classes import Player
 from error_handling import validate_input
-from quit_screen import quit_menu
+import name_generator
+from name_generator import races
+from name_generator import generate_name
 
-# introduction screen
+
+
+# Print introduction and welcome screen for Battle Magi
+def intro():
+    print("Welcome to Battle Magi!")
+    print("A text-based RPG adventure game.")
+    print("Created by: Anthony Hoganson")
+    print("\n")
+    print("You are a young mage, just beginning your journey to become a Battle Magi.")
+    print("You will face many challenges and enemies along the way.")
+    print("Do you have what it takes to become a Battle Magi?\n")
+    print("Let's find out!\n")
+
 def start_screen():
-    # ASCII art for the title screen
-    print("""
-    
-     ______   _______ __________________ _        _______    _______  _______  _______ _________
-    (  ___ \ (  ___  )\__   __/\__   __/( \      (  ____ \  (       )(  ___  )(  ____ \\__   __/
-    | (   ) )| (   ) |   ) (      ) (   | (      | (    \/  | () () || (   ) || (    \/   ) (   
-    | (__/ / | (___) |   | |      | |   | |      | (__      | || || || (___) || |         | |   
-    |  __ (  |  ___  |   | |      | |   | |      |  __)     | |(_)| ||  ___  || | ____    | |   
-    | (  \ \ | (   ) |   | |      | |   | |      | (        | |   | || (   ) || | \_  )   | |   
-    | )___) )| )   ( |   | |      | |   | (____/\| (____/\  | )   ( || )   ( || (___) |___) (___
-    |/ \___/ |/     \|   )_(      )_(   (_______/(_______/  |/     \||/     \|(_______)\_______/
-                                                                                            
-
-    """)
-    # Brief description of the game
-    print("""
-    Welcome to Battle Magi!
-    Battle Magi is a turn based text game with a complex battle system and modular magic system.
-    You will be able to create your own character and fight enemies in a turn based battle system.
-    You will be able to use a variety of weapons and magic spells to defeat your enemies.
-    """)
-    # ask the user if they are ready to begin the game
-    print("""
-    When you are ready to begin, enter 'start' to begin the game.
-    Enter 'quit' to quit the game.
-    """)
 
     start_screen_options = ["start", "quit"]
     start_screen_input = validate_input("Enter your choice: \n'start' or 'quit'\n", str, start_screen_options)
     
     if start_screen_input == "start":
-        game_loop()
+        player_name = validate_input("What is your name:\n", str)
+        player_race = validate_input("What is your race:\n", str)
+        player = Player(player_name, player_race)
+        print(f"\nWelcome, {player.race} {player.name}!")
+        game_loop(player)
     elif start_screen_input == "quit":
         quit_menu()
 
@@ -50,26 +44,24 @@ def start_screen():
 def game_loop():
     while True:
         # create the player character
-        player = character_class.Character()
+        player = Player("")
         # create the enemy
-        enemy = character_class.Character()
+        enemy = Enemy("")
 
         # get the player's name
         player.name = validate_input("What is your name:\n", str)
         print("\nWelcome, " + player.name + "!")
 
         # assign random type to enemy
-        enemy.mob_type = random.choice(["Goblin", "Orc", "Troll", "Dragon"])
-        if enemy.mob_type[0] in ["A", "E", "I", "O", "U"]:
-            print("\nYou will be fighting an " + enemy.mob_type + "!")
+        enemy.race = random.choice(races)
+        if enemy.race[0] in ["A", "E", "I", "O", "U"]:
+            print("\nYou will be fighting an " + enemy.race + "!")
         else:
-            print("\nYou will be fighting a " + enemy.mob_type + "!")
+            print("\nYou will be fighting a " + enemy.race + "!")
 
-        # assign one of ten random monster names to enemy
-        enemy.name = random.choice(["Gnarltooth", "Grimtooth", "Goretooth", "Gorebelly", "Grimbelly", "Gnarlbane", "Gorebane", "Grimbane", "Gnarlfang", "Gorefang", "Grimfang",
-                                   "Gnarlsnarl", "Goresnarl", "Grimsnarl", "Gnarlscale", "Gorescale","Grimscale", "Gnarlpelt", "Gorepelt", "Grimpelt", "Gnarlskin", "Goreskin",
-                                  "Grimskin", "Gnarlblood", "Goreblood", "Grimblood", "Gnarlfist", "Gorefist", "Grimfist", "Gnarlbasher", "Gorebasher", "Grimbasher"])
-        print("\nThe " + enemy.mob_type + "'s name is " + enemy.name + "!")
+        # assign random name to enemy
+        generate_name(enemy)
+        print("\nThe " + enemy.race + "'s name is " + enemy.name + "!")
 
         # thank the player for playing and inform them that the game is not finished yet
         print("""
@@ -84,3 +76,13 @@ This game is still in development, so there is not much to do yet.""")
 
 
 start_screen()
+
+# quit menu
+def quit_menu():
+    print("Are you sure you want to quit?")
+    quit_menu_options = ["yes", "no"]
+    quit_menu_input = validate_input("Enter your choice:\n'yes' or 'no'\n", str, quit_menu_options)
+    if quit_menu_input == "yes":
+        sys.exit()
+    elif quit_menu_input == "no":
+        return

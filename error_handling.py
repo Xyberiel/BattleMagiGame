@@ -1,6 +1,4 @@
 # error_handling.py is a file that will contain all of the error handling functions for the program.
-from quit_screen import quit_menu
-
 # validate_input() will validate the user input based on the parameters passed to it, including the prompt, the expected type, and the valid options.
 # prompt is the string that will be displayed to the user when asking for input.
 # expected_type is the type that the user input is expected to be. For example, if the user is expected to enter an integer, expected_type should be int.
@@ -8,10 +6,6 @@ from quit_screen import quit_menu
 def validate_input(prompt, expected_type=None, valid_options=None):
     while True:
         user_input = input(prompt) # prompt the user for input, prompt variable will contain the prompt string
-        # create input_copy of user_input and then check if input_copy.lower == 'quit', if so, run quit_menu()
-        input_copy = user_input
-        if input_copy.lower() == "quit":
-            quit_menu()
         # if the expected type is not None, try to convert the user input to the expected type
         if expected_type is not None:
             try:
