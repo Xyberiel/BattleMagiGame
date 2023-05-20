@@ -1,90 +1,155 @@
 # This module will handle all functions related to generating names for allies, summons, and enemies.
-
+# This module will also handle all functions related to generating names for places and magic items.
 import random
 
 # A list of all the races
 races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "unknown"]
+# A list of all the biomes
+biomes = ["forest", "mountain", "desert", "swamp", "tundra", "plains", "jungle", "cave", "city", "dungeon", "castle", "unknown"]
+# A list of all the weapons
+weapons = ["sword", "axe", "hammer", "bow", "spear", "dagger", "staff", "wand", "mace", "flail", "scythe", "whip", "fist", "unknown"]
 
-# A function that will look at a characters race and run a name generator based on that race.
-def generate_name(character):
-    if character.race == "human":
-        human_name_generator(character)
-    elif character.race == "elf":
-        elf_name_generator(character)
-    elif character.race == "dwarf":
-        dwarf_name_generator(character)
-    elif character.race == "orc":
-        orc_name_generator(character)
-    elif character.race == "goblin":
-        goblin_name_generator(character)
-    elif character.race == "troll":
-        troll_name_generator(character)
-    elif character.race == "dragon":
-        dragon_name_generator(character)
-    elif character.race == "demon":
-        demon_name_generator(character)
-    elif character.race == "angel":
-        angel_name_generator(character)
-    elif character.race == "undead":
-        undead_name_generator(character)
-    elif character.race == "beast":
-        beast_name_generator(character)
-    elif character.race == "elemental":
-        elemental_name_generator(character)
-    elif character.race == "unknown":
-        unknown_name_generator(character)
 
-# A function that will generate a human name.
-def human_name_generator(character):
-    character.name = random.choice(["Anthony", "Bob", "Charlie", "David", "Ethan", "Frank", "George", "Henry", "Isaac", "John", "Kevin", "Larry", "Michael", "Nathan", "Oscar", "Peter", "Quinn", "Robert", "Steven", "Thomas", "Ulysses", "Victor", "William", "Xavier", "Yuri", "Zachary"])
-    pass
+# name generator class that will handle all name generation
+class NameGenerator:
+    # constructor
+    def __init__(self):
+        # dictionary of possible character names based on race
+        self.character_name_library = {
+            'orc': {
+                'first_names': ['Grim', 'Gore', 'Cold', 'Iron'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+            'elf': {
+                'first_names': ['Aer', 'Ili', 'Eol', 'Ori'],
+                'last_names': ['wind', 'shadow', 'light', 'fire'],
+                'titles': ['the Swift', 'the Beautiful', 'the Wise', 'the Cunning'],
+            },
+            'human': {
+                'first_names': ['John', 'Jane', 'Jack', 'Jill'],
+                'last_names': ['Smith', 'Johnson', 'Williams', 'Jones'],
+                'titles': ['the Brave', 'the Wise', 'the Strong', 'the Cunning'],
+            },
+            'dwarf': {
+                'first_names': ['Thorin', 'Gimli', 'Balin', 'Dwalin'],
+                'last_names': ['Stone', 'Iron', 'Gold', 'Silver'],
+                'titles': ['the Brave', 'the Wise', 'the Strong', 'the Cunning'],
+            },
+            'goblin': {
+                'first_names': ['Gnarl', 'Grim', 'Gore', 'Cold'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+            'troll': {
+                'first_names': ['Gnarl', 'Grim', 'Gore', 'Cold'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+            'dragon': {
+                'first_names': ['Aer', 'Ili', 'Eol', 'Ori'],
+                'last_names': ['wind', 'shadow', 'light', 'fire'],
+                'titles': ['the Swift', 'the Beautiful', 'the Wise', 'the Cunning'],
+            },
+            'demon': {
+                'first_names': ['Grim', 'Gore', 'Cold', 'Iron'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+            'angel': {
+                'first_names': ['Aer', 'Ili', 'Eol', 'Ori'],
+                'last_names': ['wind', 'shadow', 'light', 'fire'],
+                'titles': ['the Swift', 'the Beautiful', 'the Wise', 'the Cunning'],
+            },
+            'undead': {
+                'first_names': ['Grim', 'Gore', 'Cold', 'Iron'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+            'beast': {
+                'first_names': ['Gnarl', 'Grim', 'Gore', 'Cold'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+            'elemental': {
+                'first_names': ['Aer', 'Ili', 'Eol', 'Ori'],
+                'last_names': ['wind', 'shadow', 'light', 'fire'],
+                'titles': ['the Swift', 'the Beautiful', 'the Wise', 'the Cunning'],
+            },
+            'unknown': {
+                'first_names': ['Gnarl', 'Grim', 'Gore', 'Cold'],
+                'last_names': ['Tooth', 'Flesh', 'Hide', 'Bash', 'Snarl'],
+                'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
+            },
+        }
+        # dictionary of possible place names based on biome
+        self.place_name_library = {
+            'forest': {
+                'first_parts': ['Sunny', 'Shady', 'Windy', 'Quiet'],
+                'second_parts': ['Vale', 'Glen', 'Thicket', 'Grove'],
+            },
+            'mountain': {
+                'first_parts': ['Jagged', 'Snowy', 'Searing', 'Calm'],
+                'second_parts': ['Peak', 'Range', 'Point', 'Cliff'],
+            },
+            # Add more biomes here...
+        }
+        # dictionary of possible magic item names based on weapon type
+        self.magic_item_name_library = {
+            'sword': {
+                'adjectives': ['Fire', 'Ice', 'Wind', 'Earth'],
+                'suffixes': ['of Power', 'of Speed', 'of Wisdom', 'of Fury'],
+            },
+            'axe': {
+                'adjectives': ['Berserker\'s', 'Executioner\'s', 'Warrior\'s', 'Defender\'s'],
+                'suffixes': ['of Might', 'of Precision', 'of Fortitude', 'of the Bear'],
+            },
+            # Add more weapon types here...
+        }
 
-# A function that will generate an elf name.
-def elf_name_generator(character):
-    character.name = random.choice([""])
-    pass
+        # A set of all the generated names
+        self.generated_names = set()
 
-# A function that will generate a dwarf name.
-def dwarf_name_generator(character):
-    pass
+    # function to generate a character name
+    def generate_character_name(self, race):
+        if race not in self.character_name_library:
+            raise ValueError('Unsupported race')
+        
+        while True:
+            first_name = random.choice(self.character_name_library[race]['first_names'])
+            last_name = random.choice(self.character_name_library[race]['last_names'])
+            title = random.choice(self.character_name_library[race]['titles'])
 
-# A function that will generate an orc name.
-def orc_name_generator(character):
-    pass
+            name = f'{first_name}{last_name} {title}'
 
-# A function that will generate a goblin name.
-def goblin_name_generator(character):
-    pass
+            if name not in self.generated_names:
+                self.generated_names.add(name)
+                return name
 
-# A function that will generate a troll name.
-def troll_name_generator(character):
-    pass
+    def generate_place_name(self, biome):
+        if biome not in self.place_name_library:
+            raise ValueError('Unsupported biome')
 
-# A function that will generate a dragon name.
-def dragon_name_generator(character):
-    pass
+        while True:
+            first_part = random.choice(self.place_name_library[biome]['first_parts'])
+            second_part = random.choice(self.place_name_library[biome]['second_parts'])
+            
+            name = f'{first_part} {second_part}'
 
-# A function that will generate a demon name.
-def demon_name_generator(character):
-    pass
+            if name not in self.generated_names:
+                self.generated_names.add(name)
+                return name
 
-# A function that will generate an angel name.
-def angel_name_generator(character):
-    pass
+    def generate_magic_item_name(self, weapon_type):
+        if weapon_type not in self.magic_item_name_library:
+            raise ValueError('Unsupported weapon type')
 
-# A function that will generate an undead name.
-def undead_name_generator(character):
-    pass
+        while True:
+            adjective = random.choice(self.magic_item_name_library[weapon_type]['adjectives'])
+            suffix = random.choice(self.magic_item_name_library[weapon_type]['suffixes'])
+            
+            name = f'{adjective} {weapon_type.capitalize()} {suffix}'
 
-# A function that will generate a beast name.
-def beast_name_generator(character):
-    pass
-
-# A function that will generate an elemental name.
-def elemental_name_generator(character):
-    pass
-
-# A function that will generate an unknown name.
-def unknown_name_generator(character):
-    pass
-
+            if name not in self.generated_names:
+                self.generated_names.add(name)
+                return name
