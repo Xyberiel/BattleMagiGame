@@ -4,8 +4,27 @@ import random
 
 # A list of all the races
 races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "unknown"]
+
+# A dictionary containing subraces
+subraces = {
+    "human": ["highlander", "islander", "sandwalker", "plainsmen", "mirefolk"],
+    "elf": ["high elf", "wood elf", "dark elf", "grey elf", "wild elf", "drow", "blood elf"],
+    "dwarf": ["hill dwarf", "mountain dwarf", "deep dwarf", "steppe dwarf"],
+    "orc": ["bloodforged", "ironhide", "frostborn", "felltusk", "scorchedclaw", "stonefist"],
+    "goblin": ["forest goblin", "mountain goblin", "swamp goblin"],
+    "troll": ["mossback", "cave troll", "mountain troll", "swamp troll"],
+    "dragon": ["red dragon", "blue dragon", "green dragon", "black dragon", "white dragon", "gold dragon", "silver dragon", "bronze dragon", "copper dragon", "brass dragon", "purple dragon"],
+    "demon": ["imp", "succubus", "incubus", "devil", "fiend", "abomination", "hellspawn", "archdemon"],
+    "angel": ["cherubim", "seraphim", "authority", "principalities", "powers", "virtues", "dominions", "thrones"],
+    "undead": ["skeleton", "zombie", "ghost", "vampire", "lich"],
+    "beast": ["aquatic", "flying", "subterranean", "arctic", "mythical", "prehistoric", "volcanic", "apex"],
+    "elemental": ["pyromorph", "hydromorph", "aeromorph", "lithomorph", "cryomorph", "electromorph", "dendromorph"],
+    "unknown": ["unknown"]
+}
+
 # A list of all the biomes
 biomes = ["forest", "mountain", "desert", "swamp", "tundra", "plains", "jungle", "cave", "city", "dungeon", "castle", "unknown"]
+
 # A list of all the weapons
 weapons = ["sword", "axe", "hammer", "bow", "spear", "dagger", "staff", "wand", "mace", "flail", "scythe", "whip", "fist", "unknown"]
 
@@ -82,6 +101,7 @@ class NameGenerator:
                 'titles': ['the Greedy', 'the Brutal', 'the Coward', 'the Wise'],
             },
         }
+
         # dictionary of possible place names based on biome
         self.place_name_library = {
             'forest': {
@@ -94,6 +114,7 @@ class NameGenerator:
             },
             # Add more biomes here...
         }
+
         # dictionary of possible magic item names based on weapon type
         self.magic_item_name_library = {
             'sword': {

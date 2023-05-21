@@ -1,3 +1,5 @@
+# Battle Magi is a high fantasy RPG with a wide variety of races, schools of magic, skills, abilities, biomes, and equipment.
+# Battle Magi is a text-based RPG adventure game, that has a comprehensive and complex character creation system, magic system, and combat system.
 # main.py will host the main function for the program including the game loop and references to other files.
 
 import random
