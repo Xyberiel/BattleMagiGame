@@ -3,7 +3,7 @@
 import random
 
 # A list of all the races
-races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "unknown"]
+races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "insectoid", "atlantian", "anthro", "unknown"]
 
 # A dictionary containing subraces
 subraces = {
@@ -17,8 +17,12 @@ subraces = {
     "demon": ["imp", "succubus", "incubus", "devil", "fiend", "abomination", "hellspawn", "archdemon"],
     "angel": ["cherubim", "seraphim", "authority", "principalities", "powers", "virtues", "dominions", "thrones"],
     "undead": ["skeleton", "zombie", "ghost", "vampire", "lich"],
+    "giants": ["hill giant", "mountain giant", "frost giant", "fire giant", "storm giant", "cloud giant", "stone giant", "titan"],
     "beast": ["aquatic", "flying", "subterranean", "arctic", "mythical", "prehistoric", "volcanic", "apex"],
     "elemental": ["pyromorph", "hydromorph", "aeromorph", "lithomorph", "cryomorph", "electromorph", "dendromorph"],
+    "insectoid": ["beetle", "spider", "mantis", "ant", "bee"],
+    "atlantian": ["shark", "squid", "jellyfish", "crustatean", "walrus"],
+    "anthro": ["feline", "canine", "primate", "rodent", "rabbit"],
     "unknown": ["unknown"]
 }
 
