@@ -3,28 +3,55 @@
 import random
 
 # A list of all the races
-races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "insectoid", "atlantian", "anthro", "unknown"]
+races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "insectoid", "aquatic", "beastkin", "viscera", "saurian", "myconid", "avian", "unknown"]
 
 # A dictionary containing subraces
 subraces = {
-    "human": ["highlander", "islander", "sandwalker", "plainsmen", "mirefolk"],
-    "elf": ["high elf", "wood elf", "dark elf", "grey elf", "wild elf", "drow", "blood elf"],
-    "dwarf": ["hill dwarf", "mountain dwarf", "deep dwarf", "steppe dwarf"],
-    "orc": ["bloodforged", "ironhide", "frostborn", "felltusk", "scorchedclaw", "stonefist"],
-    "goblin": ["forest goblin", "mountain goblin", "swamp goblin"],
-    "troll": ["mossback", "cave troll", "mountain troll", "swamp troll"],
-    "dragon": ["red dragon", "blue dragon", "green dragon", "black dragon", "white dragon", "gold dragon", "silver dragon", "bronze dragon", "copper dragon", "brass dragon", "purple dragon"],
-    "demon": ["imp", "succubus", "incubus", "devil", "fiend", "abomination", "hellspawn", "archdemon"],
-    "angel": ["cherubim", "seraphim", "authority", "principalities", "powers", "virtues", "dominions", "thrones"],
-    "undead": ["skeleton", "zombie", "ghost", "vampire", "lich"],
-    "giants": ["hill giant", "mountain giant", "frost giant", "fire giant", "storm giant", "cloud giant", "stone giant", "titan"],
-    "beast": ["aquatic", "flying", "subterranean", "arctic", "mythical", "prehistoric", "volcanic", "apex"],
-    "elemental": ["pyromorph", "hydromorph", "aeromorph", "lithomorph", "cryomorph", "electromorph", "dendromorph"],
-    "insectoid": ["beetle", "spider", "mantis", "ant", "bee"],
-    "atlantian": ["shark", "squid", "jellyfish", "crustatean", "walrus"],
-    "anthro": ["feline", "canine", "primate", "rodent", "rabbit"],
-    "unknown": ["unknown"]
+    "human": ["Highlander", "Islander", "Sandwalker", "Plainsfolk", "Mirekin"],
+    "elf": ["High Elf", "Wood Elf", "Dark Elf", "Grey Elf", "Wild Elf"],
+    "dwarf": ["Hill Dwarf", "Mountain Dwarf", "Deep Dwarf", "Steppe Dwarf"],
+    "orc": ["Bloodforged", "Ironhide", "Frostborn", "Felltusk", "Scorchedclaw", "Stonefist"],
+    "goblin": ["Forest Goblin", "Mountain Goblin", "Swamp Goblin"],
+    "troll": ["Mossback", "Cave Troll", "Mountain Troll", "Swamp Troll"],
+    "insectoid": ["Beetlekin", "Spiderkin", "Mantiskin", "Antkin", "Bee Drone"],
+    "aquatics": ["Sharkfolk", "Squidkind", "Jellykin", "Crustacian", "Tuskshell"],
+    "beastkin": ["Feline", "Canine", "Ursine", "Lagomorph", "Molekin"],
+    "viscera": ["Fibered Viscera", "Bonelayer Viscera"],
+    "saurian": ["Ridgeback Saurian", "Plains Saurian", "Marsh Saurian", "Mountain Saurian", "Spined Saurian"],
+    "myconid": ["Cave Myconid", "Forest Myconid", "Swamp Myconid"],
+    "avian": ["Highflier", "Gladehopper", "Cliffdweller", "Swampflitter", "Plainsrunner"],
 }
+
+non_playable_subraces = {
+    "dragon": ["Red Dragon", "Blue Dragon", "Green Dragon", "Black Dragon", "White Dragon", "Gold Dragon", "Silver Dragon", "Bronze Dragon", "Copper Dragon", "Brass Dragon", "Purple Dragon"],
+    "demon": ["Imp", "Succubus", "Incubus", "Devil", "Fiend", "Abomination", "Hellspawn", "Archdemon"],
+    "angel": ["Cherubim", "Seraphim", "Authority", "Principalities", "Powers", "Virtues", "Dominions", "Thrones"],
+    "undead": ["Skeleton", "Zombie", "Ghost", "Vampire", "Lich"],
+    "giant": ["Hill Giant", "Mountain Giant", "Frost Giant", "Fire Giant", "Storm Giant", "Cloud Giant", "Stone Giant", "Titan"],
+    "beast": ["Aquatic Beast", "Flying Beast", "Subterranean Beast", "Arctic Beast", "Mythical Beast", "Prehistoric Beast", "Volcanic Beast", "Apex Beast"],
+    "elemental": ["Pyromorph", "Hydromorph", "Aeromorph", "Lithomorph", "Cryomorph", "Electromorph", "Dendromorph"],
+}
+
+# subraces = {
+#     "human": ["highlander", "islander", "sandwalker", "plainsmen", "mirefolk"],
+#     "elf": ["high elf", "wood elf", "dark elf", "grey elf", "wild elf", "drow", "blood elf"],
+#     "dwarf": ["hill dwarf", "mountain dwarf", "deep dwarf", "steppe dwarf"],
+#     "orc": ["bloodforged", "ironhide", "frostborn", "felltusk", "scorchedclaw", "stonefist"],
+#     "goblin": ["forest goblin", "mountain goblin", "swamp goblin"],
+#     "troll": ["mossback", "cave troll", "mountain troll", "swamp troll"],
+#     "dragon": ["red dragon", "blue dragon", "green dragon", "black dragon", "white dragon", "gold dragon", "silver dragon", "bronze dragon", "copper dragon", "brass dragon", "purple dragon"],
+#     "demon": ["imp", "succubus", "incubus", "devil", "fiend", "abomination", "hellspawn", "archdemon"],
+#     "angel": ["cherubim", "seraphim", "authority", "principalities", "powers", "virtues", "dominions", "thrones"],
+#     "undead": ["skeleton", "zombie", "ghost", "vampire", "lich"],
+#     "giants": ["hill giant", "mountain giant", "frost giant", "fire giant", "storm giant", "cloud giant", "stone giant", "titan"],
+#     "beast": ["aquatic", "flying", "subterranean", "arctic", "mythical", "prehistoric", "volcanic", "apex"],
+#     "elemental": ["pyromorph", "hydromorph", "aeromorph", "lithomorph", "cryomorph", "electromorph", "dendromorph"],
+#     "insectoid": ["beetle", "spider", "mantis", "ant", "bee"],
+#     "atlantian": ["shark", "squid", "jellyfish", "crustatean", "walrus"],
+#     "anthro": ["feline", "canine", "primate", "rodent", "rabbit"],
+#     "viscera": ["muscle viscera", "bone viscera"],
+#     "unknown": ["unknown"]
+# }
 
 # A list of all the biomes
 biomes = ["forest", "mountain", "desert", "swamp", "tundra", "plains", "jungle", "cave", "city", "dungeon", "castle", "unknown"]
