@@ -3,7 +3,7 @@
 import random
 
 # A list of all the races
-races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "insectoid", "aquatic", "beastkin", "viscera", "saurian", "myconid", "avian", "unknown"]
+races = ["human", "elf", "dwarf", "orc", "goblin", "troll", "dragon", "demon", "angel", "undead", "beast", "elemental", "insectoid", "aquatic", "beastkin", "viscera", "saurian", "plantoid", "myconid", "avian", "unknown"]
 
 # A dictionary containing subraces
 subraces = {
